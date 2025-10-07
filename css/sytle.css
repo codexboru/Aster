@@ -15,9 +15,9 @@ h1 {
 
 .chart-container {
   margin: 0 auto 20px;
-  width: 95%;
-  max-width: 1200px;
-  height: 600px;
+  width: 100%;
+  max-width: 1400px;
+  height: 700px;
 }
 
 .tv-chart {
@@ -25,6 +25,7 @@ h1 {
   height: 100%;
   border: none;
 }
+
 
 .upload-container {
   margin: 20px auto;
