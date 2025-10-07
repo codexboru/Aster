@@ -1,4 +1,3 @@
-/* === Dark/Light Mode === */
 body.dark-mode {
   background-color: #000;
   color: #eee;
@@ -37,7 +36,6 @@ body.light-mode th, body.light-mode td {
   color: #111;
 }
 
-/* === Layout === */
 body {
   font-family: Arial, sans-serif;
   text-align: center;
@@ -62,7 +60,6 @@ body {
   border-radius: 6px;
 }
 
-/* === Chart & Bild === */
 .chart-container {
   margin: 0 auto 20px;
   width: 100%;
@@ -88,7 +85,6 @@ body {
   margin-top: 10px;
 }
 
-/* === Eingabe & Tabelle === */
 .input-row {
   margin: 20px auto;
   display: flex;
