@@ -1,0 +1,24 @@
+[
+  {
+    "exchange": "All Exchange",
+    "date": "2025-10-07",
+    "time": "17:00",
+    "longPercent": 48.34,
+    "shortPercent": 51.66,
+    "longRatio": "0.4834",
+    "shortRatio": "0.5166",
+    "longUSD": 739602000,
+    "shortUSD": 790398000
+  },
+  {
+    "exchange": "Binance",
+    "date": "2025-10-07",
+    "time": "17:00",
+    "longPercent": 69.62,
+    "shortPercent": 30.38,
+    "longRatio": "0.6962",
+    "shortRatio": "0.3038",
+    "longUSD": 166861067,
+    "shortUSD": 72812973
+  }
+]
