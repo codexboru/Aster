@@ -1,11 +1,20 @@
-/* DARK MODE */
+/* === Moduswechsel === */
 body.dark-mode {
   background-color: #000;
   color: #eee;
 }
 
+body.light-mode {
+  background-color: #fff;
+  color: #111;
+}
+
 body.dark-mode h1 {
   color: #ffd700;
+}
+
+body.light-mode h1 {
+  color: #222;
 }
 
 body.dark-mode table {
@@ -13,45 +22,9 @@ body.dark-mode table {
   color: #000;
 }
 
-body.dark-mode th, body.dark-mode td {
-  background-color: #ffd700;
-  color: #000;
-}
-
-/* LIGHT MODE */
-body.light-mode {
-  background-color: #fff;
-  color: #111;
-}
-
-body.light-mode h1 {
-  color: #222;
-}
-
 body.light-mode table {
   background-color: #f0f0f0;
   color: #111;
-}
-
-body.light-mode th, body.light-mode td {
-  background-color: #fff8cc;
-  color: #111;
-}
-
-
-/* Dark Mode */
-body.dark-mode {
-  background-color: #000;
-  color: #eee;
-}
-
-body.dark-mode h1 {
-  color: #ffd700;
-}
-
-body.dark-mode table {
-  background-color: #222;
-  color: #000;
 }
 
 body.dark-mode th, body.dark-mode td {
@@ -59,35 +32,17 @@ body.dark-mode th, body.dark-mode td {
   color: #000;
 }
 
-/* Light Mode */
-body.light-mode {
-  background-color: #fff;
-  color: #111;
-}
-
-body.light-mode h1 {
-  color: #222;
-}
-
-body.light-mode table {
-  background-color: #f0f0f0;
-  color: #111;
-}
-
 body.light-mode th, body.light-mode td {
   background-color: #fff8cc;
   color: #111;
 }
 
-
-body.dark-mode {
-  background-color: #000;
-  color: #eee;
-}
-
-body.light-mode {
-  background-color: #fff;
-  color: #111;
+/* === Layout === */
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
 }
 
 .top-bar {
@@ -107,22 +62,7 @@ body.light-mode {
   border-radius: 6px;
 }
 
-
-body {
-  background-color: #000;
-  color: #eee;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 0;
-  padding: 20px;
-}
-
-h1 {
-  margin-bottom: 20px;
-  font-size: 28px;
-  color: #ffd700;
-}
-
+/* === Chart & Bild === */
 .chart-container {
   margin: 0 auto 20px;
   width: 100%;
@@ -136,7 +76,6 @@ h1 {
   border: none;
 }
 
-
 .upload-container {
   margin: 20px auto;
 }
@@ -149,6 +88,7 @@ h1 {
   margin-top: 10px;
 }
 
+/* === Eingabe & Tabelle === */
 .input-row {
   margin: 20px auto;
   display: flex;
@@ -166,22 +106,19 @@ table {
   margin: 30px auto;
   border-collapse: collapse;
   width: 95%;
-  background-color: #222;
-  color: #000;
 }
 
 th, td {
   border: 1px solid #444;
   padding: 10px;
   font-size: 14px;
-  background-color: #ffd700;
 }
 
 th {
-  background-color: #ffcc00;
   font-weight: bold;
 }
 
+/* === Blinkende Dominanz === */
 .highlight-blink {
   color: red;
   font-weight: bold;
