@@ -94,4 +94,17 @@ document.getElementById("imageUpload").addEventListener("change", function () {
 });
 
 // Dark/Light Mode Toggle
-function toggleMode()
+function toggleMode() {
+  const body = document.body;
+  const button = document.getElementById("modeToggle");
+
+  if (body.classList.contains("dark-mode")) {
+    body.classList.remove("dark-mode");
+    body.classList.add("light-mode");
+    button.textContent = "☀️";
+  } else {
+    body.classList.remove("light-mode");
+    body.classList.add("dark-mode");
+    button.textContent = "🌙";
+  }
+}
