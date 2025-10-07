@@ -1,5 +1,40 @@
 let dataStore = [];
 
+window.addEventListener("DOMContentLoaded", () => {
+  const savedMode = localStorage.getItem("siteMode");
+  const body = document.body;
+  const button = document.getElementById("modeToggle");
+
+  if (savedMode === "light") {
+    body.classList.remove("dark-mode");
+    body.classList.add("light-mode");
+    button.textContent = "☀️";
+  } else {
+    body.classList.remove("light-mode");
+    body.classList.add("dark-mode");
+    button.textContent = "🌙";
+  }
+
+  button.addEventListener("click", toggleMode);
+});
+
+function toggleMode() {
+  const body = document.body;
+  const button = document.getElementById("modeToggle");
+
+  if (body.classList.contains("dark-mode")) {
+    body.classList.remove("dark-mode");
+    body.classList.add("light-mode");
+    button.textContent = "☀️";
+    localStorage.setItem("siteMode", "light");
+  } else {
+    body.classList.remove("light-mode");
+    body.classList.add("dark-mode");
+    button.textContent = "🌙";
+    localStorage.setItem("siteMode", "dark");
+  }
+}
+
 function saveData() {
   const date = document.getElementById("dateInput").value;
   const time = document.getElementById("timeInput").value;
@@ -66,25 +101,4 @@ function uploadJSON() {
   const file = fileInput.files[0];
   if (!file) return;
 
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    try {
-      const json = JSON.parse(e.target.result);
-      if (Array.isArray(json)) {
-        dataStore = json;
-        renderTable();
-      }
-    } catch (err) {
-      alert("Ungültige JSON-Datei.");
-    }
-  };
-  reader.readAsText(file);
-}
-
-document.getElementById("imageUpload").addEventListener("change", function () {
-  const file = this.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    document.getElementById("uploadedImage").inner
+  const reader = new File
