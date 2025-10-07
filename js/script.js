@@ -16,6 +16,7 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   button.addEventListener("click", toggleMode);
+  document.getElementById("saveButton").addEventListener("click", saveData);
 });
 
 function toggleMode() {
@@ -42,7 +43,10 @@ function saveData() {
   const longPercent = parseFloat(document.getElementById("longInput").value);
   const shortPercent = parseFloat(document.getElementById("shortInput").value);
 
-  if (!date || !time || isNaN(notional) || isNaN(longPercent) || isNaN(shortPercent)) return;
+  if (!date || !time || isNaN(notional) || isNaN(longPercent) || isNaN(shortPercent)) {
+    document.getElementById("saveStatus").textContent = "Bitte alle Felder korrekt ausfüllen.";
+    return;
+  }
 
   const longRatio = (longPercent / 100).toFixed(4);
   const shortRatio = (shortPercent / 100).toFixed(4);
@@ -58,6 +62,7 @@ function saveData() {
 
   dataStore.push(entry);
   renderTable();
+  document.getElementById("saveStatus").textContent = "✅ Eintrag gespeichert.";
 }
 
 function renderTable() {
@@ -91,14 +96,4 @@ function downloadJSON() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = "asterdex-data.json";
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-function uploadJSON() {
-  const fileInput = document.getElementById("jsonUpload");
-  const file = fileInput.files[0];
-  if (!file) return;
-
-  const reader = new File
+  a
