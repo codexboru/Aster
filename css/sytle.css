@@ -1,3 +1,44 @@
+/* Dark Mode */
+body.dark-mode {
+  background-color: #000;
+  color: #eee;
+}
+
+body.dark-mode h1 {
+  color: #ffd700;
+}
+
+body.dark-mode table {
+  background-color: #222;
+  color: #000;
+}
+
+body.dark-mode th, body.dark-mode td {
+  background-color: #ffd700;
+  color: #000;
+}
+
+/* Light Mode */
+body.light-mode {
+  background-color: #fff;
+  color: #111;
+}
+
+body.light-mode h1 {
+  color: #222;
+}
+
+body.light-mode table {
+  background-color: #f0f0f0;
+  color: #111;
+}
+
+body.light-mode th, body.light-mode td {
+  background-color: #fff8cc;
+  color: #111;
+}
+
+
 body.dark-mode {
   background-color: #000;
   color: #eee;
