@@ -14,9 +14,6 @@ function saveData() {
   const longUSD = notional * longRatio;
   const shortUSD = notional * shortRatio;
 
-  const highlightLong = longUSD > shortUSD ? "highlight-blink" : "";
-  const highlightShort = shortUSD > longUSD ? "highlight-blink" : "";
-
   const entry = {
     date, time, longPercent, shortPercent,
     longRatio, shortRatio,
@@ -62,6 +59,26 @@ function downloadJSON() {
   a.download = "asterdex-data.json";
   a.click();
   URL.revokeObjectURL(url);
+}
+
+function uploadJSON() {
+  const fileInput = document.getElementById("jsonUpload");
+  const file = fileInput.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    try {
+      const json = JSON.parse(e.target.result);
+      if (Array.isArray(json)) {
+        dataStore = json;
+        renderTable();
+      }
+    } catch (err) {
+      alert("Ungültige JSON-Datei.");
+    }
+  };
+  reader.readAsText(file);
 }
 
 // Bild-Upload
