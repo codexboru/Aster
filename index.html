@@ -2,21 +2,96 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>ASTERUSDT Codex</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <script src="js/script.js" defer></script>
+  <title>ASTERUSDT – Marktresonanz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ffffff;
+      color: #111;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .chart-container {
+      margin: 0 auto 20px;
+      width: 100%;
+      max-width: 1600px;
+      height: 800px;
+    }
+
+    .tv-chart {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .upload-container {
+      margin: 20px auto;
+    }
+
+    #uploadedImage img {
+      width: 100%;
+      max-width: 1600px;
+      height: 800px;
+      object-fit: contain;
+      margin-top: 10px;
+    }
+
+    .input-row {
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .input-row input, .input-row button {
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    table {
+      margin: 30px auto;
+      border-collapse: collapse;
+      width: 95%;
+    }
+
+    th, td {
+      border: 1px solid #444;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #eee;
+    }
+
+    .highlight-blink {
+      color: red;
+      font-weight: bold;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+  </style>
 </head>
-<body class="dark-mode">
-  <div class="top-bar">
-    <h1>ASTERUSDT – Marktresonanz</h1>
-    <button id="modeToggle" onclick="toggleMode()">🌙</button>
-  </div>
+<body>
+  <h1>ASTERUSDT – Marktresonanz</h1>
 
   <div class="chart-container">
     <iframe
       width="100%" 
-  height="500" 
-      src="https://www.tradingview.com/embed-widget/advanced-chart/?symbol=BINANCE:ASTERUSDT&interval=15&timezone=Etc/GMT-3&theme=dark"
+  height="500"
+      src="https://www.tradingview.com/embed-widget/advanced-chart/?symbol=BINANCE:ASTERUSDT&interval=30&timezone=Etc/GMT-3&theme=light"
       frameborder="0" allowtransparency="true" scrolling="no" class="tv-chart"></iframe>
   </div>
 
@@ -45,12 +120,130 @@
         <th>Short %</th>
         <th>Long Ratio</th>
         <th>Short Ratio</th>
-        <th>Long ($)</th>
-        <th>Short ($)</th>
+        <th>Long (S)</th>
+        <th>Short (S)</th>
         <th>Löschen</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
+
+  <script>
+    let dataStore = [];
+
+    // Wiederherstellen beim Laden
+    window.addEventListener("DOMContentLoaded", () => {
+      const saved = localStorage.getItem("asterusdtData");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed)) {
+            dataStore = parsed;
+            renderTable();
+          }
+        } catch (e) {
+          console.warn("Fehler beim Laden der gespeicherten Daten.");
+        }
+      }
+    });
+
+    function saveData() {
+      const date = document.getElementById("dateInput").value;
+      const time = document.getElementById("timeInput").value;
+      const notional = parseFloat(document.getElementById("notionalInput").value);
+      const longPercent = parseFloat(document.getElementById("longInput").value);
+      const shortPercent = parseFloat(document.getElementById("shortInput").value);
+
+      if (!date || !time || isNaN(notional) || isNaN(longPercent) || isNaN(shortPercent)) {
+        alert("Bitte alle Felder korrekt ausfüllen.");
+        return;
+      }
+
+      const longRatio = (longPercent / 100).toFixed(4);
+      const shortRatio = (shortPercent / 100).toFixed(4);
+      const longUSD = notional * longRatio;
+      const shortUSD = notional * shortRatio;
+
+      const entry = {
+        date, time, longPercent, shortPercent,
+        longRatio, shortRatio,
+        longUSD: Math.round(longUSD),
+        shortUSD: Math.round(shortUSD)
+      };
+
+      dataStore.push(entry);
+      localStorage.setItem("asterusdtData", JSON.stringify(dataStore));
+      renderTable();
+    }
+
+    function renderTable() {
+      const tbody = document.querySelector("#dataTable tbody");
+      tbody.innerHTML = "";
+
+      dataStore.forEach((entry, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${entry.date}</td>
+          <td>${entry.time}</td>
+          <td>${entry.longPercent}%</td>
+          <td>${entry.shortPercent}%</td>
+          <td>${(entry.longRatio * 100).toFixed(2)}%</td>
+          <td>${(entry.shortRatio * 100).toFixed(2)}%</td>
+          <td class="${entry.longUSD > entry.shortUSD ? 'highlight-blink' : ''}">$${entry.longUSD.toLocaleString()}</td>
+          <td class="${entry.shortUSD > entry.longUSD ? 'highlight-blink' : ''}">$${entry.shortUSD.toLocaleString()}</td>
+          <td><button onclick="deleteRow(${index})">🗑️</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    function deleteRow(index) {
+      dataStore.splice(index, 1);
+      localStorage.setItem("asterusdtData", JSON.stringify(dataStore));
+      renderTable();
+    }
+
+    function downloadJSON() {
+      const blob = new Blob([JSON.stringify(dataStore, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "asterusdt-data.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function uploadJSON() {
+      const fileInput = document.getElementById("jsonUpload");
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const json = JSON.parse(e.target.result);
+          if (Array.isArray(json)) {
+            dataStore = json;
+            localStorage.setItem("asterusdtData", JSON.stringify(dataStore));
+            renderTable();
+          }
+        } catch (err) {
+          alert("Ungültige JSON-Datei.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    document.getElementById("imageUpload").addEventListener("change", function () {
+      const file = this.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("uploadedImage").innerHTML = `<img src="${e.target.result}" alt="Chart Bild" />`;
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
 </body>
   </html>
