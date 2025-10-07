@@ -2,6 +2,21 @@
 Aster future Open interest
 
 
+[Openinterest](https://www.coinglass.com/de/BitcoinOpenInterest)
+
+1) extract data openinterest $ Value 24h
+
+
+
+[Ratio](https://www.coinglass.com/de/LongShortRatio)
+
+2) extract data Long / short ratio
+
+   
+put that data in Aster database
+
+
+
 # ASTERDEX Codex – Marktresonanz in Würde
 
 Ein lebendiger Codex zur manuellen Erfassung und Visualisierung von ASTERUSDT-Daten.  
