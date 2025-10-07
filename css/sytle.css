@@ -1,4 +1,4 @@
-/* === Moduswechsel === */
+/* === Dark/Light Mode === */
 body.dark-mode {
   background-color: #000;
   color: #eee;
@@ -118,7 +118,6 @@ th {
   font-weight: bold;
 }
 
-/* === Blinkende Dominanz === */
 .highlight-blink {
   color: red;
   font-weight: bold;
@@ -129,4 +128,4 @@ th {
   0% { opacity: 1; }
   50% { opacity: 0.3; }
   100% { opacity: 1; }
-}
+  }
