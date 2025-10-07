@@ -94,5 +94,4 @@ document.getElementById("imageUpload").addEventListener("change", function () {
 });
 
 // Dark/Light Mode Toggle
-function toggleMode() {
-  const
+function toggleMode()
