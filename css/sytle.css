@@ -1,5 +1,5 @@
 body {
-  background-color: #111;
+  background-color: #000;
   color: #eee;
   font-family: Arial, sans-serif;
   text-align: center;
@@ -10,13 +10,14 @@ body {
 h1 {
   margin-bottom: 20px;
   font-size: 28px;
+  color: #ffd700;
 }
 
 .chart-container {
   margin: 0 auto 20px;
-  width: 90%;
-  max-width: 1000px;
-  height: 500px;
+  width: 95%;
+  max-width: 1200px;
+  height: 600px;
 }
 
 .tv-chart {
@@ -31,8 +32,8 @@ h1 {
 
 #uploadedImage img {
   width: 100%;
-  max-width: 1000px;
-  height: 500px;
+  max-width: 1200px;
+  height: 600px;
   object-fit: contain;
   margin-top: 10px;
 }
@@ -54,17 +55,20 @@ table {
   margin: 30px auto;
   border-collapse: collapse;
   width: 95%;
-  background-color: #1a1a1a;
+  background-color: #222;
+  color: #000;
 }
 
 th, td {
   border: 1px solid #444;
   padding: 10px;
   font-size: 14px;
+  background-color: #ffd700;
 }
 
 th {
-  background-color: #222;
+  background-color: #ffcc00;
+  font-weight: bold;
 }
 
 .highlight-blink {
