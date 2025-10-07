@@ -81,18 +81,10 @@ function uploadJSON() {
   reader.readAsText(file);
 }
 
-// Bild-Upload
 document.getElementById("imageUpload").addEventListener("change", function () {
   const file = this.files[0];
   if (!file) return;
 
   const reader = new FileReader();
   reader.onload = function (e) {
-    document.getElementById("uploadedImage").innerHTML = `<img src="${e.target.result}" alt="Chart Bild" />`;
-  };
-  reader.readAsDataURL(file);
-});
-
-// Dark/Light Mode Toggle
-function toggleMode() {
-  const body = document.body;
+    document.getElementById("uploadedImage").inner
