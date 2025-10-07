@@ -50,7 +50,7 @@
       gap: 10px;
     }
 
-    .input-row input, .input-row button {
+    .input-row input, .input-row select, .input-row button {
       padding: 10px;
       font-size: 14px;
     }
@@ -89,8 +89,6 @@
 
   <div class="chart-container">
     <iframe
-      width="100%" 
-  height="500"
       src="https://www.tradingview.com/embed-widget/advanced-chart/?symbol=BINANCE:ASTERUSDT&interval=30&timezone=Etc/GMT-3&theme=light"
       frameborder="0" allowtransparency="true" scrolling="no" class="tv-chart"></iframe>
   </div>
@@ -101,8 +99,10 @@
   </div>
 
   <div class="input-row">
-
-    <input type="name" id="notionalInput" placeholder="Binance / all exchange" />
+    <select id="exchangeSelect">
+      <option value="Binance">Binance</option>
+      <option value="All Exchange">All Exchange</option>
+    </select>
     <input type="date" id="dateInput" />
     <input type="time" id="timeInput" />
     <input type="number" id="notionalInput" placeholder="Open Interest (USDT)" />
@@ -116,7 +116,7 @@
   <table id="dataTable">
     <thead>
       <tr>
-        <th>Binance / All exchange</th>
+        <th>Exchange</th>
         <th>Datum</th>
         <th>Uhrzeit</th>
         <th>Long %</th>
@@ -134,7 +134,6 @@
   <script>
     let dataStore = [];
 
-    // Wiederherstellen beim Laden
     window.addEventListener("DOMContentLoaded", () => {
       const saved = localStorage.getItem("asterusdtData");
       if (saved) {
@@ -151,6 +150,7 @@
     });
 
     function saveData() {
+      const exchange = document.getElementById("exchangeSelect").value;
       const date = document.getElementById("dateInput").value;
       const time = document.getElementById("timeInput").value;
       const notional = parseFloat(document.getElementById("notionalInput").value);
@@ -168,7 +168,7 @@
       const shortUSD = notional * shortRatio;
 
       const entry = {
-        date, time, longPercent, shortPercent,
+        exchange, date, time, longPercent, shortPercent,
         longRatio, shortRatio,
         longUSD: Math.round(longUSD),
         shortUSD: Math.round(shortUSD)
@@ -186,6 +186,7 @@
       dataStore.forEach((entry, index) => {
         const row = document.createElement("tr");
         row.innerHTML = `
+          <td>${entry.exchange}</td>
           <td>${entry.date}</td>
           <td>${entry.time}</td>
           <td>${entry.longPercent}%</td>
@@ -249,4 +250,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
