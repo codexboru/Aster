@@ -66,8 +66,8 @@ body {
 .chart-container {
   margin: 0 auto 20px;
   width: 100%;
-  max-width: 1400px;
-  height: 700px;
+  max-width: 1600px;
+  height: 800px;
 }
 
 .tv-chart {
@@ -82,8 +82,8 @@ body {
 
 #uploadedImage img {
   width: 100%;
-  max-width: 1200px;
-  height: 600px;
+  max-width: 1600px;
+  height: 800px;
   object-fit: contain;
   margin-top: 10px;
 }
