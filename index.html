@@ -128,6 +128,7 @@
     <input type="number" id="shortClusterInput" placeholder="Short liq. Price" step="0.0001" />
     <button onclick="saveData()">Speichern</button>
     <button onclick="downloadJSON()">Download JSON</button>
+    <input type="file" id="jsonUpload" accept=".json" />
   </div>
 
   <div class="link-row">
@@ -261,6 +262,29 @@
       };
       reader.readAsDataURL(file);
     });
+
+    document.getElementById("jsonUpload").addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    try {
+      const parsed = JSON.parse(e.target.result);
+      if (Array.isArray(parsed)) {
+        dataStore = parsed;
+        localStorage.setItem("asterusdtData", JSON.stringify(dataStore));
+        renderTable();
+        alert("✅ JSON erfolgreich geladen.");
+      } else {
+        alert("⚠️ Ungültiges JSON-Format.");
+      }
+    } catch (err) {
+      alert("⚠️ Fehler beim Einlesen der Datei.");
+    }
+  };
+  reader.readAsText(file);
+});
   </script>
 </body>
 </html>
