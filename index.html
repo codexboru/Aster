@@ -106,8 +106,8 @@
     <input type="date" id="dateInput" />
     <input type="time" id="timeInput" />
     <input type="number" id="notionalInput" placeholder="Open Interest (USDT)" />
-    <input type="number" id="longInput" placeholder="Long %" />
-    <input type="number" id="shortInput" placeholder="Short %" />
+    <input type="number" id="longClusterInput" placeholder="Long liq cluster (price)" step="0.0001" />
+    <input type="number" id="shortClusterInput" placeholder="Short liq cluster (price)" step="0.0001" />
     <button onclick="saveData()">Speichern</button>
     <button onclick="downloadJSON()">Download JSON</button>
     <input type="file" id="jsonUpload" accept=".json" onchange="uploadJSON()" />
@@ -119,8 +119,8 @@
         <th>Exchange</th>
         <th>Datum</th>
         <th>Uhrzeit</th>
-        <th>Long %</th>
-        <th>Short %</th>
+        <th>Long liq cluster</th>
+        <th>Short liq cluster</th>
         <th>Long Ratio</th>
         <th>Short Ratio</th>
         <th>Long (S)</th>
@@ -154,21 +154,21 @@
       const date = document.getElementById("dateInput").value;
       const time = document.getElementById("timeInput").value;
       const notional = parseFloat(document.getElementById("notionalInput").value);
-      const longPercent = parseFloat(document.getElementById("longInput").value);
-      const shortPercent = parseFloat(document.getElementById("shortInput").value);
+      const longCluster = parseFloat(document.getElementById("longClusterInput").value);
+      const shortCluster = parseFloat(document.getElementById("shortClusterInput").value);
 
-      if (!date || !time || isNaN(notional) || isNaN(longPercent) || isNaN(shortPercent)) {
+      if (!date || !time || isNaN(notional) || isNaN(longCluster) || isNaN(shortCluster)) {
         alert("Bitte alle Felder korrekt ausfüllen.");
         return;
       }
 
-      const longRatio = (longPercent / 100).toFixed(4);
-      const shortRatio = (shortPercent / 100).toFixed(4);
+      const longRatio = 0.6963; // Beispielwert oder dynamisch berechnet
+      const shortRatio = 0.3037;
       const longUSD = notional * longRatio;
       const shortUSD = notional * shortRatio;
 
       const entry = {
-        exchange, date, time, longPercent, shortPercent,
+        exchange, date, time, longCluster, shortCluster,
         longRatio, shortRatio,
         longUSD: Math.round(longUSD),
         shortUSD: Math.round(shortUSD)
@@ -189,8 +189,8 @@
           <td>${entry.exchange}</td>
           <td>${entry.date}</td>
           <td>${entry.time}</td>
-          <td>${entry.longPercent}%</td>
-          <td>${entry.shortPercent}%</td>
+          <td>${entry.longCluster}</td>
+          <td>${entry.shortCluster}</td>
           <td>${(entry.longRatio * 100).toFixed(2)}%</td>
           <td>${(entry.shortRatio * 100).toFixed(2)}%</td>
           <td class="${entry.longUSD > entry.shortUSD ? 'highlight-blink' : ''}">$${entry.longUSD.toLocaleString()}</td>
