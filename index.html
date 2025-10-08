@@ -179,27 +179,32 @@
       const date = document.getElementById("dateInput").value;
       const time = document.getElementById("timeInput").value;
       const notional = parseFloat(document.getElementById("notionalInput").value);
-      const longRatioRaw = document.getElementById("longRatioInput").value;
-      const shortRatioRaw = document.getElementById("shortRatioInput").value;
+      const longRatioRaw = document.getElementById("longRatioInput").value.trim();
+      const shortRatioRaw = document.getElementById("shortRatioInput").value.trim();
       const longCluster = parseFloat(document.getElementById("longClusterInput").value);
       const shortCluster = parseFloat(document.getElementById("shortClusterInput").value);
 
-      if (!date || !time || isNaN(notional) || !longRatioRaw || !shortRatioRaw || isNaN(longCluster) || isNaN(shortCluster)) {
+      const longRatio = parseFloat(longRatioRaw) / 100;
+      const shortRatio = parseFloat(shortRatioRaw) / 100;
+
+      if (
+        !exchange || !date || !time ||
+        isNaN(notional) || notional <= 0 ||
+        isNaN(longRatio) || isNaN(shortRatio) ||
+        isNaN(longCluster) || isNaN(shortCluster)
+      ) {
         alert("Bitte alle Felder korrekt ausfüllen.");
         return;
       }
 
-      const longRatio = parseFloat(longRatioRaw) / 100;
-      const shortRatio = parseFloat(shortRatioRaw) / 100;
-      const longUSD = notional * longRatio;
-      const shortUSD = notional * shortRatio;
+      const longUSD = Math.round(notional * longRatio);
+      const shortUSD = Math.round(notional * shortRatio);
 
       const entry = {
         exchange, date, time, notional,
         longRatio, shortRatio,
         longCluster, shortCluster,
-        longUSD: Math.round(longUSD),
-        shortUSD: Math.round(shortUSD)
+        longUSD, shortUSD
       };
 
       dataStore.push(entry);
@@ -232,9 +237,8 @@
 
     function deleteRow(index) {
       dataStore.splice(index, 1);
-      localStorage.setItem("asterusdtData", JSON.stringify(dataStore));
-      renderTable();
-    }
+      localStorage.setItem("asterusdtData
+         }
 
     function downloadJSON() {
       const blob = new Blob([JSON.stringify(dataStore, null, 2)], { type: "application/json" });
@@ -258,4 +262,4 @@
     });
   </script>
 </body>
-</html>
+</html>                  
