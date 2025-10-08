@@ -236,11 +236,10 @@
     }
 
     function deleteRow(index) {
-  dataStore.splice(index, 1);
-  localStorage.setItem("asterusdtData", JSON.stringify(dataStore));
-  renderTable();
+      dataStore.splice(index, 1);
+      localStorage.setItem("asterusdtData", JSON.stringify(dataStore));
+      renderTable();
     }
-                                                    }
 
     function downloadJSON() {
       const blob = new Blob([JSON.stringify(dataStore, null, 2)], { type: "application/json" });
@@ -264,4 +263,4 @@
     });
   </script>
 </body>
-</html>                  
+</html>
