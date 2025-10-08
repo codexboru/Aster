@@ -128,7 +128,10 @@
     <input type="number" id="shortClusterInput" placeholder="Short liq. Price" step="0.0001" />
     <button onclick="saveData()">Speichern</button>
     <button onclick="downloadJSON()">Download JSON</button>
-    <input type="file" id="jsonUpload" accept=".json" />
+    <label for="jsonUpload" style="padding:10px 20px; background:#222; color:#fff; border-radius:6px; font-weight:bold; cursor:pointer;">
+  JSON hochladen
+</label>
+<input type="file" id="jsonUpload" accept=".json" style="display:none;" />
   </div>
 
   <div class="link-row">
